@@ -46,8 +46,8 @@ class GMap extends Component {
   });
 
   onClose = props => {
-    console.log(this.state.activeMarker);
-    console.log(this.state.selectedPlace);
+    //console.log(this.state.activeMarker);
+    //console.log(this.state.selectedPlace);
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -98,6 +98,7 @@ defaultOptions={{
 */
   render() {
     return (
+      <div className="mapContainer" style={{height: '90vh', width: '100%'}}>
       <Map
         google={this.props.google}
         zoom={14}
@@ -105,12 +106,14 @@ defaultOptions={{
           lat: 32.717572,
           lng: -117.16662
         }}
+        style={{height: '90vh', width: '100%'}}
       >
         {this.createMarkers(this.props.positions)}
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
+          className={'infoWindow'}
         >
           <h4>ID: {this.state.selectedPlace.name}</h4>
           <p>
@@ -121,6 +124,7 @@ defaultOptions={{
           <Button color='blue'>Call Dibs (PRO)</Button>
         </InfoWindow>
       </Map>
+      </div>
     )
   }
 }

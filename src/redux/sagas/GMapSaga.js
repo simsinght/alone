@@ -1,5 +1,9 @@
-import { all, call, delay, put, takeEvery, take } from 'redux-saga/effects';
-import { GET_POSITIONS, GET_POSITIONS_SUCCESS, POLL_POSITIONS, LEFT_SET_TIME } from '../actionsTypes';
+import { all, call, delay, put, takeLatest } from 'redux-saga/effects';
+import { GET_POSITIONS_SUCCESS,
+         LEFT_SET_TIME,
+         SET_SLIDER_VALUE_ONCE,
+         SET_SLIDER_VALUE
+       } from '../actionsTypes';
 import axios from 'axios';
 import data from './cleanData';
 
@@ -9,16 +13,6 @@ let positions = points.map(([llat, llong]) => ({
                               lng: llong,
                               name: ' '+llat+llong
                             }));
-let positionz = [[{name: "Aim's Marker", lat: 32.717572, lng: -117.16564}],
-                 [{name: "Jim's Marker", lat: 32.717074, lng: -117.16564}],
-                 [{name: "Kim's Marker", lat: 32.716574, lng: -117.16564}],
-                 [{name: "Lim's Marker", lat: 32.716074, lng: -117.16564}],
-                 [{name: "Nim's Marker", lat: 32.715574, lng: -117.16564}],
-                 [{name: "Pim's Marker", lat: 32.715074, lng: -117.16564}],
-                 [{name: "Sim's Marker", lat: 32.714574, lng: -117.16564}],
-                 [{name: "Tim's Marker", lat: 32.714074, lng: -117.16564}],
-                 [{name: "Vim's Marker", lat: 32.713574, lng: -117.16564}],
-                 [{name: "Zim's Marker", lat: 32.713074, lng: -117.16564}]];
 
 export function* pollPositionsWalker() {
   let i = 0;
@@ -29,7 +23,7 @@ export function* pollPositionsWalker() {
       `http://localhost:5000/${i}/${j}`,
       { 'headers': { 'Access-Control-Allow-Origin': '*', } }
     );
-    console.log(i, response.data);
+    //console.log(i, response.data);
 
     yield put({type: GET_POSITIONS_SUCCESS, payload: {positions: response.data}});
     yield delay(5000);
@@ -38,20 +32,16 @@ export function* pollPositionsWalker() {
 }
 
 export function* pollPositions() {
-  let i = 0;
-  i = i % positions.length;
   yield put({type: GET_POSITIONS_SUCCESS, payload: {positions}});
   yield delay(3000);
-  i = i + 1;
 }
 
 export function* pollHours() {
 
+  //console.log('callPollHours')
   let i=0, j=0, k=0;
   let numToDay = {0:'MONDAY',1:'TUESDAY',2:'WEDNESDAY',
                   3:'THURSDAY',4:'FRIDAY',5:'SATURDAY',6:'SUNDAY'}
-  let shortToLong = {'Mon':'MONDAY','Tue':'TUESDAY','Wed':'WEDNESDAY',
-               'Thu':'THURSDAY','Fri':'FRIDAY','Sat':'SATURDAY','Sun':'SUNDAY'}
   let timeToHour = {'00': '12-1AM',
                     '01': '1-2AM',
                     '02': '2-3AM',
@@ -80,13 +70,71 @@ export function* pollHours() {
   }
 }
 
+export function* pollHour(action) {
+
+  //console.log('callPollHour');
+  if (action == null) {
+    //console.log('null action');
+    action = {payload: {val: 0, looping: false}}
+  }
+
+  let day = Math.floor(action.payload.val / 24);
+  let hour = action.payload.val % 24;
+
+  let numToDay = {0:'MONDAY',1:'TUESDAY',2:'WEDNESDAY', 3:'THURSDAY',
+                  4:'FRIDAY',5:'SATURDAY',6:'SUNDAY'};
+  let timeToHour = {'00': '12-1AM', '01': '1-2AM', '02': '2-3AM',
+                    '03': '3-4AM', '04': '4-5AM', '05': '5-6AM',
+                    '20': '8-9PM', '21': '9-10PM', '22': '10-11AM',
+                    '23': '11-12AM', };
+  let hourToIndex = {0:0, 1:1, 2:2, 3:3, 4:4, 21:5, 22:6, 23:7};
+  let indexToHour = {0:0, 1:1, 2:2, 3:3, 4:4, 5:21, 6:22, 7:23};
+
+  if (!action.payload.looping) {
+    //console.log("not looping", day, hour);
+    let count = data[day][hourToIndex[hour]].length;
+    //console.log('count', count);
+    let out = data[day][hourToIndex[hour]].slice(0,8);
+    //console.log('out', hour);
+    hour = timeToHour[out[0]['time'][3].split(':')[0]];
+    //console.log('hour', hour);
+    yield put({type: GET_POSITIONS_SUCCESS, payload: {positions: out}});
+    yield put({ type: LEFT_SET_TIME, payload: {day: numToDay[day], hour, count} });
+    return;
+  }
+
+  let i=day, j=hourToIndex[hour], k=0;
+  for (; i<data.length; i++) {
+    for (; j<data[i].length; j++) {
+      let count = data[i][j].length
+      let hour = timeToHour[data[i][j][0]['time'][3].split(':')[0]]
+      yield put({ type: LEFT_SET_TIME,
+        payload: {day: numToDay[i], hour, count} })
+        // 'name''lat''lng''dir'
+        for (k=0;k<1;k++) {
+          let out = data[i][j].slice(k, k+8)
+          yield put({type: GET_POSITIONS_SUCCESS, payload: {positions: out}});
+          yield put({type: SET_SLIDER_VALUE, payload: {val: i*24+indexToHour[j], looping: true}})
+          yield delay(3000);
+        }
+      }
+      j=0;
+    }
+    yield put({type: SET_SLIDER_VALUE, payload: {val: i*24 - 1, looping: false}})
+}
+
+export function* watchPollHour() {
+  yield takeLatest(SET_SLIDER_VALUE_ONCE, pollHour);
+}
+
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
     // call(pollPositions),
     // call(pollPositionsWalker),
-    call(pollHours),
-
+    // call(pollHours),
+    call(watchPollHour),
+    call(pollHour),
   ])
 }
 

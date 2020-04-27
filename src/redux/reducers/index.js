@@ -1,4 +1,4 @@
 import { combineReducers } from "redux";
-import GMap from "./GMap";
+import GMap from "./GMapReducer";
 
 export default combineReducers({ GMap });
