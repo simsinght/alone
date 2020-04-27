@@ -1,20 +1,19 @@
 {
   "files": {
-    "main.css": "/alone/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/alone/static/js/main.5fdfd637.chunk.js",
-    "main.js.map": "/alone/static/js/main.5fdfd637.chunk.js.map",
+    "main.css": "/alone/static/css/main.af688fea.chunk.css",
+    "main.js": "/alone/static/js/main.288c8245.chunk.js",
+    "main.js.map": "/alone/static/js/main.288c8245.chunk.js.map",
     "runtime-main.js": "/alone/static/js/runtime-main.fafb65b5.js",
     "runtime-main.js.map": "/alone/static/js/runtime-main.fafb65b5.js.map",
     "static/css/2.771aec41.chunk.css": "/alone/static/css/2.771aec41.chunk.css",
-    "static/js/2.dc34d38b.chunk.js": "/alone/static/js/2.dc34d38b.chunk.js",
-    "static/js/2.dc34d38b.chunk.js.map": "/alone/static/js/2.dc34d38b.chunk.js.map",
+    "static/js/2.0c927adc.chunk.js": "/alone/static/js/2.0c927adc.chunk.js",
+    "static/js/2.0c927adc.chunk.js.map": "/alone/static/js/2.0c927adc.chunk.js.map",
     "index.html": "/alone/index.html",
-    "precache-manifest.693975e95724556e2e54d29a0e3b892a.js": "/alone/precache-manifest.693975e95724556e2e54d29a0e3b892a.js",
+    "precache-manifest.e5153915aeaefce5e84ec59a8a861aa6.js": "/alone/precache-manifest.e5153915aeaefce5e84ec59a8a861aa6.js",
     "service-worker.js": "/alone/service-worker.js",
     "static/css/2.771aec41.chunk.css.map": "/alone/static/css/2.771aec41.chunk.css.map",
-    "static/css/main.5ecd60fb.chunk.css.map": "/alone/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.dc34d38b.chunk.js.LICENSE.txt": "/alone/static/js/2.dc34d38b.chunk.js.LICENSE.txt",
-    "static/media/border.png": "/alone/static/media/border.d18ffbd1.png",
+    "static/css/main.af688fea.chunk.css.map": "/alone/static/css/main.af688fea.chunk.css.map",
+    "static/js/2.0c927adc.chunk.js.LICENSE.txt": "/alone/static/js/2.0c927adc.chunk.js.LICENSE.txt",
     "static/media/semantic.min.css": "/alone/static/media/outline-icons.ef60a4f6.woff",
     "static/media/red-dot-e.png": "/alone/static/media/red-dot-e.af94bbad.png",
     "static/media/red-dot-n.png": "/alone/static/media/red-dot-n.2d2501fc.png",
@@ -29,8 +28,8 @@
   "entrypoints": [
     "static/js/runtime-main.fafb65b5.js",
     "static/css/2.771aec41.chunk.css",
-    "static/js/2.dc34d38b.chunk.js",
-    "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.5fdfd637.chunk.js"
+    "static/js/2.0c927adc.chunk.js",
+    "static/css/main.af688fea.chunk.css",
+    "static/js/main.288c8245.chunk.js"
   ]
 }
