@@ -52,13 +52,13 @@ class RightControl extends Component {
             <br/>
             <Slider parity={this.props.parity} value={this.props.sliderValue} color="red" settings={this.settings}/>
             <Segment.Group horizontal style={{margin: 0, backgroundColor: 'black', color: 'white'}}>
-              <Segment inverted style={{paddingTop: 5, textAlign: 'center'}}>Mon</Segment>
-              <Segment inverted style={{paddingTop: 5, textAlign: 'center'}}>Tue</Segment>
-              <Segment inverted style={{paddingTop: 5, textAlign: 'center'}}>Wed</Segment>
-              <Segment inverted style={{paddingTop: 5, textAlign: 'center'}}>Thu</Segment>
-              <Segment inverted style={{paddingTop: 5, textAlign: 'center'}}>Fri</Segment>
-              <Segment inverted style={{paddingTop: 5, textAlign: 'center'}}>Sat</Segment>
-              <Segment inverted style={{paddingTop: 5, textAlign: 'center'}}>Sun</Segment>
+              <Segment inverted style={{paddingTop: 5, textAlign: 'center', borderLeft: '1px solid white'}}>Mon</Segment>
+              <Segment inverted style={{paddingTop: 5, textAlign: 'center', borderLeft: '1px solid white'}}>Tue</Segment>
+              <Segment inverted style={{paddingTop: 5, textAlign: 'center', borderLeft: '1px solid white'}}>Wed</Segment>
+              <Segment inverted style={{paddingTop: 5, textAlign: 'center', borderLeft: '1px solid white'}}>Thu</Segment>
+              <Segment inverted style={{paddingTop: 5, textAlign: 'center', borderLeft: '1px solid white'}}>Fri</Segment>
+              <Segment inverted style={{paddingTop: 5, textAlign: 'center', borderLeft: '1px solid white'}}>Sat</Segment>
+              <Segment inverted style={{paddingTop: 5, textAlign: 'center', borderLeft: '1px solid white', borderRight: '1px solid white'}}>Sun</Segment>
             </Segment.Group>
           </Grid.Row>
           <div style={{height: '90vh'}}>

@@ -9,7 +9,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <Provider store={store}> <App onDismiss={() => store.dispatch(startLoop(0))}style={{'backgroundColor': 'black'}}/> </Provider>,
+  <Provider store={store}> <App onDismiss={() => store.dispatch(startLoop(0, true))}style={{'backgroundColor': 'black'}}/> </Provider>,
   document.getElementById('root')
 );
 

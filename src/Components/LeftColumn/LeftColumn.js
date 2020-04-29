@@ -7,13 +7,11 @@ class LeftColumn extends Component {
   render() {
     return (
       <Grid.Column style={{paddingRight: 0}} verticalAlign={'middle'} centered width={4}>
-        {!this.props.looping ?
-          <div className='redoTime'>
-            <Button icon color='black' onClick={() => this.props.continueTicking(this.props.sliderValue)}>
-              <Icon name='play' color='red'/>
-            </Button>
-          </div> : null
-        }
+        <div className='redoTime'>
+          <Button icon color='black' onClick={() => this.props.continueTicking(this.props.sliderValue, !this.props.looping)}>
+            <Icon name={this.props.looping ? 'pause': 'play'} color='red'/>
+          </Button>
+        </div> : null
         <br/>
         <div className={'controlInfo'}>
         <Header textAlign='center' style={{marginBottom: 0}}>

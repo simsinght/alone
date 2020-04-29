@@ -13,7 +13,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  continueTicking: (val) => dispatch(startLoop(val))
+  continueTicking: (val, looping) => dispatch(startLoop(val, looping))
 })
 
 // export default TodoList;

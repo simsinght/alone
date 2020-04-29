@@ -61,7 +61,7 @@ export const setSliderValueOnce = (val, looping) => {
   }
 }
 
-export const startLoop = (val) => {
+export const startLoop = (val, looping) => {
   //console.log(val);
   if (val >= 7*24 - 1){
     val = 0;
@@ -73,7 +73,7 @@ export const startLoop = (val) => {
   return {
     type: SET_SLIDER_VALUE_ONCE,
     payload: {
-      looping: true,
+      looping,
       val
     }
   }
